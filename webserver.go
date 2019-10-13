@@ -9,11 +9,12 @@ import(
 type Webserver struct {
 	server *gin.Engine
 }
-func (this *Webserver) Configure () {
+func (this *Webserver) configure () {
 	this.server = gin.Default()
 	this.setRoutes()
 }
 func (this *Webserver) Start () {
+	this.configure()
 	this.server.Run()
 }
 func (this *Webserver) setRoutes () {

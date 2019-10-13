@@ -1,15 +1,10 @@
 package main
 
-import(
-	//"github.com/go-sql-driver/mysql"
-	"database/sql"
-)
-
-var db *sql.DB
-
 func main () {
+	database := new(DatabaseManager)
+	database.Start()
+
 	webserver := new(Webserver)
-	webserver.Configure()
 	webserver.Start()
 }
 
