@@ -1,4 +1,4 @@
-package webserver
+package main
 
 import(
 	"fmt"
@@ -18,7 +18,7 @@ func (this *Webserver) Start () {
 }
 func (this *Webserver) setRoutes () {
 	v1Group := this.server.Group("/v1")
-	this.setPlayerRoutes(v1Group)
+	this.setItemRoutes(v1Group)
 }
 func (this *Webserver) setItemRoutes (group *gin.RouterGroup) {
 	group.GET("/items", getItemsCtrl)

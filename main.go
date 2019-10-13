@@ -1,11 +1,14 @@
 package main
 
 import(
-	"github.com/leobrines/go-apirest-example/webserver"
+	//"github.com/go-sql-driver/mysql"
+	"database/sql"
 )
 
+var db *sql.DB
+
 func main () {
-	webserver := new(webserver.Webserver)
+	webserver := new(Webserver)
 	webserver.Configure()
 	webserver.Start()
 }
