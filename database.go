@@ -10,8 +10,7 @@ import(
 type DatabaseManager struct {
 	db *sql.DB
 }
-
-func (this *DatabaseManager) Start () {
+func (this *DatabaseManager) start () {
 	var err error
 	connection := os.Getenv("USER")+":"+os.Getenv("PASSWORD")+"@/"+os.Getenv("DBNAME")+"?charset=utf8"
 	this.db, err = sql.Open("mysql", connection)
@@ -23,14 +22,32 @@ func (this *DatabaseManager) Start () {
 	configureDB(this.db);
 }
 
-func (this *DatabaseManager) GetItems (db *sql.DB) {
-	rows, err := db.Query("SELECT * FROM items")
+func (this *DatabaseManager) getItems () *[]Item {
+	rows, err := this.db.Query("SELECT * FROM item")
 
 	if (err) != nil {
 		panic(err)
 	}
 
-	fmt.Println(rows)
+	item := Item{}
+	result := []Item{}
+
+	for rows.Next() {
+		err = rows.Scan(
+			&item.Id,
+			&item.Name,
+			&item.Description,
+			&item.Price,
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		result = append(result, item)
+	}
+
+	return &result
 }
 
 func configureDB (db *sql.DB) {

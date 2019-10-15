@@ -2,9 +2,12 @@ package main
 
 func main () {
 	database := new(DatabaseManager)
-	database.Start()
+	database.start()
 
-	webserver := new(Webserver)
-	webserver.Start()
+	itemService := &ItemService{db: database}
+	controller := &Controller{itemService: itemService}
+
+	webserver := Webserver{controller: controller}
+	webserver.start()
 }
 

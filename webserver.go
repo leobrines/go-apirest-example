@@ -1,20 +1,14 @@
 package main
 
-import(
-	"fmt"
-	"net/http"
-	"github.com/gin-gonic/gin"
-)
+import "github.com/gin-gonic/gin"
 
 type Webserver struct {
 	server *gin.Engine
+	controller *Controller
 }
-func (this *Webserver) configure () {
+func (this *Webserver) start () {
 	this.server = gin.Default()
 	this.setRoutes()
-}
-func (this *Webserver) Start () {
-	this.configure()
 	this.server.Run()
 }
 func (this *Webserver) setRoutes () {
@@ -22,16 +16,6 @@ func (this *Webserver) setRoutes () {
 	this.setItemRoutes(v1Group)
 }
 func (this *Webserver) setItemRoutes (group *gin.RouterGroup) {
-	group.GET("/items", getItemsCtrl)
-	group.POST("/item", createItemsCtrl)
+	group.GET("/items", this.controller.getItems)
+	group.POST("/item", this.controller.createItems)
 }
-
-func getItemsCtrl (c *gin.Context) {
-	fmt.Println("Obteniendo items...")
-	c.Status(http.StatusOK)
-}
-func createItemsCtrl (c *gin.Context) {
-	fmt.Println("Creando items...")
-	c.Status(http.StatusOK)
-}
-
