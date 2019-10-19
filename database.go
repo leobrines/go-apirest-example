@@ -12,7 +12,7 @@ type DatabaseManager struct {
 }
 func (this *DatabaseManager) start () {
 	var err error
-	connection := os.Getenv("USER")+":"+os.Getenv("PASSWORD")+"@/"+os.Getenv("DBNAME")+"?charset=utf8"
+	connection := os.Getenv("DBUSER")+":"+os.Getenv("DBPASSWD")+"@/"+os.Getenv("DBNAME")+"?charset=utf8"
 	this.db, err = sql.Open("mysql", connection)
 
 	if err != nil {
