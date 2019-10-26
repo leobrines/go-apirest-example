@@ -1,6 +1,6 @@
 package main
 
-func main () {
+func main() {
 	database := new(DatabaseManager)
 	database.start()
 
@@ -10,4 +10,3 @@ func main () {
 	webserver := Webserver{controller: controller}
 	webserver.start()
 }
-
